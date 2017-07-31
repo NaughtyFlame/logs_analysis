@@ -22,25 +22,19 @@ def db_execute(query):
 
 # Calculate number of access for every article
 query_log_article = """
-SELECT title, count(*) as total
+SELECT title, views
 FROM log_articles
-GROUP BY title
-ORDER BY total DESC
-LIMIT 3
-;
+ORDER BY views DESC
+LIMIT 3;
 """
 
 # Calculate number of access for every author
 query_log_author = """
-SELECT name,total
-FROM (
-SELECT author, count(*) as total
-  FROM log_articles
-  GROUP BY author
-) AS a_list, authors
+SELECT name, sum(views) as total
+FROM log_articles, authors
 WHERE author = id
-ORDER BY total DESC
-;
+GROUP BY name
+ORDER BY total DESC;
 """
 
 # Calculate error rate

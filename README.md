@@ -53,21 +53,25 @@ Outputing a table of successful log record for every article and its author
 
 ```
 CREATE VIEW  log_articles AS
-  SELECT author, title FROM articles
+  SELECT title, author, count(*) AS views FROM articles
   LEFT JOIN log
   ON '/article/' || slug = path
-  WHERE status = '200 OK';
+  WHERE status = '200 OK'
+  GROUP BY title, author;
 ```
 
 **Example:**
 
-| id      | author |               title             |
-| :------ | :----- | :------------------------------ |
-| 1678924 |      2 | Candidate is jerk, alleges rival|
-| 1678925 |      1 | Goats eat Google's lawn         |
-| 1678926 |      1 | Goats eat Google's lawn         |
-| 1678927 |      4 | Balloon goons doomed            |
-| 1678929 |      2 | Candidate is jerk, alleges rival|
+|title                              | author |  views |
+| :-------------------------------- | :----- | :----- |
+|Trouble for troubled troublemakers |      2 |  84810 |
+|There are a lot of bears           |      1 |  84504 |
+|Candidate is jerk, alleges rival   |      2 | 338647 |
+|Bad things gone, say good people   |      3 | 170098 |
+|Bears love berries, alleges bear   |      1 | 253801 |
+|Media obsessed with bears          |      1 |  84383 |
+|Balloon goons doomed               |      4 |  84557 |
+|Goats eat Google's lawn            |      1 |  84906 |
 
 ### log_daily
 Outputing a table of all requests for each day.
