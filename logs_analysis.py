@@ -50,7 +50,7 @@ def print_top_articles():
 
     print("\nWhat are the most popular three articles of all time?\n")
     for title, total in results:
-        print("\"%s\"  --  %s Views" % (title, total))
+        print('\"{}\" -- {} views'.format(title, total))
 
 
 def print_top_authors():
@@ -66,7 +66,7 @@ def print_top_authors():
 
     print("\nWho are the most popular article authors of all time?\n")
     for name, total in results:
-        print("\"%s\"  --  %s Views" % (name, total))
+        print('\"{}\" -- {} views'.format(name, total))
 
 def print_errors_over_one():
     """Prints out the days where more than 1% of logged access requests were errors."""
@@ -80,7 +80,7 @@ def print_errors_over_one():
 
     print("\nOn which days did more than 1% of requests lead to errors?\n")
     for date, rate in results:
-        print("%s  --  %.1f %% errors" % (date, rate*100))
+        print("{0:%B %d, %Y} - {1:.2%}  errors".format(date, rate))
 
 if __name__ == '__main__':
     print_top_articles()
