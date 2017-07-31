@@ -3,6 +3,7 @@ import psycopg2
 
 DBNAME = "news"
 
+
 def db_connect():
     """ Creates and returns a connection to the database defined by DBNAME,
         as well as a cursor for the database.
@@ -17,6 +18,7 @@ def db_connect():
         print "Can not connect to the database"
     else:
         return db
+
 
 def execute_query(query):
     """execute_query takes an SQL query as a parameter.
@@ -37,6 +39,7 @@ def execute_query(query):
     result = c.fetchall()
     db.close()
     return result
+
 
 def print_top_articles():
     """Prints out the top 3 articles of all time."""
@@ -68,8 +71,12 @@ def print_top_authors():
     for name, total in results:
         print('\"{}\" -- {} views'.format(name, total))
 
+
 def print_errors_over_one():
-    """Prints out the days where more than 1% of logged access requests were errors."""
+    """
+    Prints out the days where more than 1% of logged access requests were
+    errors.
+    """
     query = """
     SELECT log_daily.date , count_error::numeric/count_total AS error_rate
     FROM log_daily, log_error
